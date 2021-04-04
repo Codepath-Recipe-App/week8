@@ -1,12 +1,4 @@
-# week8
-Unit 8: Group Milestone - README Example
-===
-
-:::info
-**Below is an example** of what your **Recipe App** should include and how it should be structured for the **Unit 8 Group Milestone Submission**.
-:::
-
-# TUNIN
+# Recipe Finder
 
 ## Table of Contents
 1. [Overview](#Overview)
@@ -16,10 +8,10 @@ Unit 8: Group Milestone - README Example
 ## Overview
 
 ### Description
-This app uses the food API to generate recipes based on ingredients in your food.
+This app uses the spoonacular API to generate recipes based on ingredients in your pantry.
 
 ### App Evaluation
-- **Category:** 
+- **Category:** Food
 - **Mobile:** This app would be primarily developed for mobile but would perhaps be just as viable on a computer. Functionality wouldn't be limited to mobile devices.
 - **Story:** Analyzes users food choices, and provides them with useful recipes.
 - **Market:** Any individual could choose to use this app.
@@ -36,7 +28,6 @@ This app uses the food API to generate recipes based on ingredients in your food
 * User can type ingredients
 * Generated recipes
 * Profile pages for each user
-* Settings
 
 **Optional Nice-to-have Stories**
 
@@ -74,13 +65,46 @@ Optional:
 **Flow Navigation** (Screen to Screen)
 * Forced Log-in -> Account creation if no log in is available
 * Profile -> Text field to be modified. 
-* Settings -> Toggle settings
+* Ingredient selection -> Recipe generation
 
-## Wireframes
-<img src="https://www.figma.com/file/mysRGKzkuw1cKg6sgv4joo/Mobile-UI-kit-Community?node-id=194%3A1561"
+## Digital Wireframes / Interactive Prototype
+[Wireframes from figma.com](https://www.figma.com/file/mysRGKzkuw1cKg6sgv4joo/Mobile-UI-kit-Community?node-id=194%3A1561)
 
-### [BONUS] Digital Wireframes & Mockups
-<img src="https://www.figma.com/file/mysRGKzkuw1cKg6sgv4joo/Mobile-UI-kit-Community?node-id=194%3A1561"
+## Schema 
 
-### [BONUS] Interactive Prototype
-<img src="https://www.figma.com/file/mysRGKzkuw1cKg6sgv4joo/Mobile-UI-kit-Community?node-id=194%3A1561"
+### Models
+#### Post
+
+   | Property      | Type     | Description |
+   | ------------- | -------- | ------------|
+   | objectId      | String   | unique id for the user post (default field) |
+   | author        | Pointer to User| image author |
+   | image         | File     | image of the recipe |
+   | caption       | String   | image caption by author |
+   | createdAt     | DateTime | date when post is created (default field) |
+   | ingredients   | String   | ingredients that the recipes should contain |
+   
+### Networking
+#### List of network requests by screen
+   - Home Feed Screen
+      - (Read/GET) Query all recipes where user is author
+      - (Create/POST) Create a new saved recipe
+      - (Delete) Delete existing recipe
+      - (Create/POST) Create a new comment on a recipe
+      - (Delete) Delete existing comment
+   - Profile Screen
+      - (Read/GET) Query logged in user object
+      - (Update/PUT) Update user profile image
+
+- [Create basic snippets for each Parse network request]
+
+#### [OPTIONAL:] Existing API Endpoints
+##### Spoonacular API
+- Base URL - [https://api.spoonacular.com/recipes](https://api.spoonacular.com/recipes)
+
+   HTTP Verb | Endpoint | Description
+   ----------|----------|------------
+    `GET`    | /findByIngredients | get certain number of recipes
+    `GET`    | /{id}/information | return information about a recipe such as diet and allergen info
+    `GET`    | /{id}/summary   | return short description of recipe
+    `GET`    | /extract | return recipe data such as instructions
